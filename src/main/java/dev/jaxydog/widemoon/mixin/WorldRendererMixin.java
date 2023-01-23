@@ -1,5 +1,6 @@
 package dev.jaxydog.widemoon.mixin;
 
+import dev.jaxydog.widemoon.MoonWidener;
 import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.util.math.Matrix4f;
 import org.spongepowered.asm.mixin.Mixin;
@@ -22,7 +23,7 @@ public class WorldRendererMixin {
 		),
 		ordinal = 1
 	)
-	private Matrix4f wideMoon$scaleSun(Matrix4f in) {
+	private Matrix4f wideMoon$updateMatrix(Matrix4f in) {
 		originalMatrix = in.copy();
 		return in.copy();
 	}
@@ -38,7 +39,7 @@ public class WorldRendererMixin {
 	)
 	private Matrix4f wideMoon$scaleMoon(Matrix4f in) {
 		var copy = originalMatrix.copy();
-		copy.multiply(Matrix4f.scale(16.0f, 1.0f, 16.0f));
+		copy.multiply(Matrix4f.scale(MoonWidener.MOON_SIZE, 1.0f, MoonWidener.MOON_SIZE));
 		originalMatrix = null;
 		return copy;
 	}
